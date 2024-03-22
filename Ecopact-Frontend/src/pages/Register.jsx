@@ -1,14 +1,11 @@
 import Navbar from "../components/Navbar";
-import {set, useForm} from 'react-hook-form';
-import { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm} from 'react-hook-form';
 
-import { useDispatch,useSelector } from "react-redux";
+import {  useNavigate} from "react-router-dom";
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { registerUser } from "../apiCalls/authApiCall";
 const Register = () => {
-  const dispatch = useDispatch();
   let navigate = useNavigate();
   const formShema = yup.object({
     firstName: yup.string().required('Enter your first name'),
@@ -26,11 +23,12 @@ const Register = () => {
     resolver: yupResolver(formShema)
   });
   const onSubmit = (data)=>{
-    console.log(data)
+    
     registerUser({
       ...data,
       profilePhoto: document.querySelector('.img')[0]
     }); 
+    
   };
   
   return (

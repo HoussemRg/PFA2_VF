@@ -1,7 +1,8 @@
 const asyncHandler=require('express-async-handler');
 const { validateData, Data } = require("../Models/Data");
 const xlsx=require('xlsx');
-const { default: mongoose } = require('mongoose');
+const  mongoose= require('mongoose');
+const { Alert } = require('../Models/Alert');
 
 
 /***---------------------------
@@ -15,9 +16,11 @@ const addNewReport=asyncHandler(async(req,res)=>{
     if(!req.file){
         return res.status(400).send("no file provided");
      }
+     const reportName=req.file.originalname;
      const workbook=xlsx.read(req.file.buffer);
      const sheet = workbook.Sheets[workbook.SheetNames[0]];
      const jsonData = xlsx.utils.sheet_to_json(sheet, { raw: true });
+     let alertData=[];
      for(const row of jsonData){
         const {error}=validateData({date:row.date,data:{dataName:row.dataType,dataRate:row.rate}});
         if(error) return res.status(400).send(`${error.details[0].message} in a field of your data`);
@@ -33,7 +36,21 @@ const addNewReport=asyncHandler(async(req,res)=>{
         
         if(!existingData){
          await timeSerie.save()
+         if(timeSerie.data.dataName==="NH4" && timeSerie.data.dataRate>3){
+            alertData.push(timeSerie._id);
+         }else if(timeSerie.data.dataName==="PxOy" && timeSerie.data.dataRate>2.5){
+            alertData.push(timeSerie._id);
+         }else if(timeSerie.data.dataName==="S" && timeSerie.data.dataRate>2.75){
+            alertData.push(timeSerie._id);
+         }
         }
+     }
+     if(alertData.length!==0){
+      await Alert.create({
+         user:userId,
+         fileName:reportName,
+         data:alertData,
+      })
      }
      return res.status(200).send("file uploaded successfully");
 })

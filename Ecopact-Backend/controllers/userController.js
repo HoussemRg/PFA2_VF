@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const {OTP}=require('../Models/OTP');
 const sendMail = require('../lib/sendMail');
 const sendEmailVerif = require('../lib/sendEmailVerif');
+const { Alert } = require('../Models/Alert');
 
 /***---------------------------
  * @desc delete user
@@ -17,6 +18,7 @@ const deleteUser = asyncHandler(async(req,res)=>{
     const fetchedUser=await User.findById(userId);
     if(!fetchedUser) return res.status(400).send("User not found");
     const data=await Data.deleteMany({user:userId});
+    await Alert.deleteMany({user:userId})
     await User.findByIdAndDelete(userId);
     return res.status(201).send(fetchedUser);
 });
@@ -47,7 +49,7 @@ const updateUser = asyncHandler(async(req, res) => {
 });
 
 const getUsers = asyncHandler(async(req,res)=>{
-    const users = await User.find({},{ password: 0 });
+    const users = await User.find({isAdmin:false},{ password: 0 });
     if(!users) return res.status(404).send('No user found');
     return res.status(200).json({users: users});                
 });

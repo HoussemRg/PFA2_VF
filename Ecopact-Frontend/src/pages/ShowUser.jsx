@@ -6,7 +6,9 @@ import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import './ShowUser.css';
+import Profile from '../assets/profile.png'
 
+import getImageType from '../utils/getImageType';
 const ShowUser = () => {
   const [user, setUser] = useState({});
   const { id } = useParams();
@@ -24,11 +26,6 @@ const ShowUser = () => {
     fetchUser();
   }, [id]); 
 
-  const imageSrc = user.user
-  ? `data:image/jpeg;base64,${btoa(
-      String.fromCharCode(...new Uint8Array(user.user.profilePhoto.data))
-    )}`
-  : '';
 const navigate = useNavigate();
 const navigateToEditPage = ()=>{
   navigate(`/users/edit/${user.user._id}`)
@@ -45,7 +42,7 @@ const navigateToDeletePage = ()=>{
             <div className="panel">
               <div className="user-heading round">
                 <a href="#">
-                  <img src={imageSrc} alt="" />
+                  <img src={user?.user && user?.user?.profilePhoto?.data ? getImageType(user.user.profilePhoto.data) : Profile} alt="Profile Photo" />
                 </a>
                 {user.user && (
                   <>

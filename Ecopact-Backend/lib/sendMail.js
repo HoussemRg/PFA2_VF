@@ -7,8 +7,8 @@ module.exports = async function sendMail(data){
         port: 465,
         secure: true,
         auth: {
-          user: "houssemrg00@gmail.com", //change to Anpe host email
-          pass: "aedf rnjk zahx bakt",
+          user: process.env.APP_EMAIL_ADRESS, //change to Anpe host email
+          pass: process.env.APP_EMAIL_PASSWORD,
         },
       });
         const message = {

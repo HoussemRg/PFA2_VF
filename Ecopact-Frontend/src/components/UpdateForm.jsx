@@ -5,7 +5,8 @@ import { useForm} from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { UpdateUser } from '../apiCalls/userApiCall';
 import {useSelector} from 'react-redux'
-
+import getImageType from '../utils/getImageType';
+import Profile from '../assets/profile.png'
 
 function UpdateForm() {
   const user = useSelector(state=>state.auth.user);
@@ -61,12 +62,11 @@ function UpdateForm() {
     UpUser(UpdatedUser);
   };
   const userProfile = user || {}; 
-  const imageSrc = userProfile.profilePhoto ? `data:image/jpeg;base64,${btoa(String.fromCharCode(...new Uint8Array(userProfile.profilePhoto.data)))}` : ''; 
 
   return (
-    <div className='flex justify-center items-center'>
-      <div className='w-1/4 ml-32'>
-        <img className='w-full' src={imageSrc} alt="" />
+    <div className='flex justify-center items-center mt-14'>
+      <div className='w-1/4 mr-24 rounded-full'>
+        <img className=' w-72 h-72 rounded-full  ' src={user && user?.profilePhoto?.data ? getImageType(user.profilePhoto.data) : Profile}  alt="" />
       </div>
       <form className="flex max-w-md flex-col gap-4 for w-2/3" onSubmit={handleSubmit(onSubmit)}>
         <div>

@@ -58,9 +58,9 @@ const SendVerifEmail = async(data) => {
     try {
         const res = await request.post('/api/user/storeOTP',data);
         if(res){
-            toast.success("Verification code sent");
+            toast.success("Verification code sent",{autoClose:1200});
         }else{
-            toast.error("Error while sending code");
+            toast.error("Error while sending code",{autoClose:1200});
         }
     } catch (err) {
         throw err;
@@ -72,7 +72,7 @@ const sendOTPCode = async(data) => {
         return res;
         
     } catch (err) {
-        toast.error("OTP code does not match");
+        toast.error("OTP code does not match",{autoClose:1200});
         throw err;
     
     }
@@ -83,7 +83,7 @@ const changePassword = async(data) => {
         return res;
         
     } catch (err) {
-        toast.error("Error while changing password");
+        toast.error("Error while changing password",{autoClose:1200});
         throw err;
     
     }

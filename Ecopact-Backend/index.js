@@ -9,6 +9,7 @@ const { authRoutes } = require('./routes/authRoutes');
 const { dataRoutes } = require('./routes/dataRoutes');
 const { notFound, errorHandler } = require('./middlewares/errors');
 const { userRoutes } = require('./routes/userRoutes');
+const { alertsRoutes } = require('./routes/alertsRoutes');
 const app=express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -19,6 +20,7 @@ app.use(cors({
 app.use('/api/auth',authRoutes);
 app.use('/api/data',dataRoutes);
 app.use('/api/user',userRoutes);
+app.use('/api/alerts',alertsRoutes);
 
 
 //not found middleware

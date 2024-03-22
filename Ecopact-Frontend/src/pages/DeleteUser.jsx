@@ -15,14 +15,15 @@ const DeleteUser = () => {
             const response = await DelUser(id, user);
             if (response && response.data) {
                 toast.success('User deleted successfully');
-                navigate('/Dashboard');
+                user?.isAdmin ? navigate('/AdminDashboard') : navigate('/Dashboard') 
+                
             } else {
-                toast.error('Failed to delete user');
+                toast.error('Failed to delete user',{autoClose:1200});
             }
         } catch (error) {
 
             if (error.response && error.response.data) {
-                toast.error(error.response.data); 
+                toast.error(error.response.data,{autoClose:1200}); 
             } else {
                 toast.error('An error occurred while deleting user');
             }
@@ -32,7 +33,7 @@ const DeleteUser = () => {
     return (
         <div>
             <Navbar />
-            <div className='bo items-center justify-center flex items-center'>
+            <div className='bo  justify-center flex items-center'>
                 <div className="flex flex-col p-10  border  border-slate-600 gap-6 text-center">
                     <h3>Are you sure you want to delete ?</h3>
                     <div className='flex gap-3 btns'>

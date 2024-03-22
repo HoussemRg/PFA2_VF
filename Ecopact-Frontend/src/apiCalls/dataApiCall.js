@@ -13,7 +13,7 @@ const postFile = (file) => {
             'Content-Type': "multipart/form-data"
           }
         });
-        toast.success(res.data);
+        toast.success(res.data,{autoClose:1200});
         dispatch(getNH4AverageData());
         dispatch(getPxOyAverageData());
         dispatch(getSAverageData());
@@ -22,7 +22,7 @@ const postFile = (file) => {
         dispatch(getRecentData('S'));
         dispatch(getArrangementsNumber());
       } catch (err) {
-        toast.error(err?.response?.data)
+        toast.error(err?.response?.data,{autoClose:1200})
       }
     };
   };
@@ -115,7 +115,7 @@ const getDataPerMonth=(dataType,month,year)=>{
                     dispatch(dataActions.getSPerMonth(res.data));
                 }    
         }catch(err){
-            toast.error(err.response.data)
+            toast.error(err.response.data,{autoClose:1200})
         }
     }
 }
@@ -153,7 +153,7 @@ const getDataPerYear=(dataType,year)=>{
                 }      
             
         }catch(err){
-            toast.error(err.response.data)
+            toast.error(err.response.data,{autoClose:1200})
         }
     }
 }

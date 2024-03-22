@@ -27,6 +27,7 @@ const Navbar = () => {
     dispatch(dataActions.getSRecentData([]))
     dispatch(dataActions.getArrangements([]))
     dispatch(authActions.logout());
+    localStorage.removeItem("user");
     
   }
   return (
@@ -56,10 +57,16 @@ const Navbar = () => {
           <Link to="/Login">Login</Link>
           
         </li>}
-        { user && <li
+        { user && !user?.isAdmin && <li
           className={`font-semibold cursor-pointer max-lg:pb-3 max-lg:hover:border-b border-yellow-400 hover:text-yellow-400 transition-all active:text-yellow-400`}
         >
           <Link to="/Dashboard">Dashboard</Link>
+          
+        </li>}
+        { user && user?.isAdmin && <li
+          className={`font-semibold cursor-pointer max-lg:pb-3 max-lg:hover:border-b border-yellow-400 hover:text-yellow-400 transition-all active:text-yellow-400`}
+        >
+          <Link to="/AdminDashboard">Admin Dashboard</Link>
           
         </li>}
         { user && <li
@@ -68,11 +75,11 @@ const Navbar = () => {
           Logout
           
         </li>}
-        <li
+        { !user?.isAdmin && <li
           className={`font-semibold cursor-pointer max-lg:pb-3 max-lg:hover:border-b border-yellow-400 hover:text-yellow-400 transition-all active:text-yellow-400`}
         >
           <Link to="/Contact">Contact</Link>
-        </li>
+        </li>}
       </ul>
     </nav>
   );

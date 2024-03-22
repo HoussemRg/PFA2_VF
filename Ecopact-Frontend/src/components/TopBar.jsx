@@ -1,25 +1,14 @@
-import Profile from '../assets/profile.png'
-import { IoMail } from "react-icons/io5";
-import { MdNotificationsActive } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import { CgLogOut } from "react-icons/cg";
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../slices/authSlice';
 import { dataActions } from '../slices/dataSlice';
+import MenuListCompositionClient from './Boxes/MenuListCompositionClient';
+import getImageType from '../utils/getImageType';
+import Profile from '../assets/profile.png'
 
-const TopBar = ({mailToggled,setMailToggled,alertToggled,setAlertToggled}) => {
-  const toggleMail=()=>{
-    if(alertToggled){
-      setAlertToggled(!alertToggled);
-    }
-    setMailToggled(!mailToggled);
-  }
-  const toggleAlert=()=>{
-    if(mailToggled){
-      setMailToggled(!mailToggled);
-    }
-    setAlertToggled(!alertToggled);
-  }
+
+const TopBar = () => {
   const user = useSelector(state=>state.auth.user);
   const dispatch=useDispatch();
   const nullifyUser = ()=>{
@@ -42,31 +31,28 @@ const TopBar = ({mailToggled,setMailToggled,alertToggled,setAlertToggled}) => {
     dispatch(dataActions.getPxOyRecentData([]))
     dispatch(dataActions.getSRecentData([]))
     dispatch(dataActions.getArrangements([]))
-    dispatch(authActions.logout());
-    localStorage.removeItem("menu");
+    dispatch(authActions.logout()); 
+    localStorage.removeItem("user");
   }
   return (
     <div className='flex justify-end items-center pr-12 h-full text-gray-300'>
-      <div className='flex justify-around items-center h-full gap-2'>
+      <div className='flex justify-around items-center h-full gap-6'>
       <div
-          className={`text-xl h-full flex items-center px-3 hover:bg-blue-800 transition-all ${
-            mailToggled && " bg-blue-800"
-          } cursor-pointer `}
+          className={`text-xl h-full flex items-center px-3 hover:bg-blue-800 transition-all } cursor-pointer `}
           onClick={nullifyUser}
         >
           <Link to="/">
             <CgLogOut />
           </Link>
         </div>
-        <div className={`text-xl h-full flex items-center px-3 hover:bg-blue-800 transition-all ${mailToggled && " bg-blue-800" } cursor-pointer `} onClick={toggleMail}>
-            <IoMail />
+        <div className={`text-xl h-full flex items-center px-3 hover:bg-blue-800 transition-all  cursor-pointer `}>
+            <MenuListCompositionClient />
         </div>
+        
        
-        <div className={`text-xl px-3 h-full flex items-center hover:bg-blue-800 transition-all ${alertToggled && " bg-blue-800" } cursor-pointer `} onClick={toggleAlert}>
-            <MdNotificationsActive />
-        </div>
+        
         <div className='flex justify-around items-center gap-3'>
-            <img src={Profile} alt="profile" className={` w-9  my-2 h-9 rounded-full`} />
+            <img src={user && user?.profilePhoto?.data ? getImageType(user.profilePhoto.data) : Profile} alt="Profile Photo" className={` w-9  my-2 h-9 rounded-full`} />
             {user&&<Link to={`/users/details/${user?.id}`} className='font-semibold '>{user?.firstName} {user?.lastName}</Link>}
         </div>
       </div>
@@ -75,3 +61,4 @@ const TopBar = ({mailToggled,setMailToggled,alertToggled,setAlertToggled}) => {
 }
 
 export default TopBar
+/*<img src={user.profilePhoto ?  getImageType(user.profilePhoto.data) ? `data:${getImageType(user.profilePhoto.data)};base64,${btoa(String.fromCharCode(...user.profilePhoto.data))}`:'': ''} alt="Profile Photo" className={` w-9  my-2 h-9 rounded-full`} />*/
