@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 import request from './request';
-
+import {useDispatch} from 'react-redux'
+import { authActions } from '../slices/authSlice';
 
 const getAllUsers=async()=>{
     try{
@@ -44,7 +45,6 @@ const UpdateUser = async (updated, id) => {
         user.email=res.data.email;
         user.phoneNumber=res.data.phoneNumber;
         localStorage.setItem("user",JSON.stringify(user))
-
         return res;
     } catch (err) {
         throw err; 

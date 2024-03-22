@@ -34,6 +34,7 @@ const TopBar = () => {
     dispatch(authActions.logout()); 
     localStorage.removeItem("user");
   }
+  
   return (
     <div className='flex justify-end items-center pr-12 h-full text-gray-300'>
       <div className='flex justify-around items-center h-full gap-6'>
@@ -53,7 +54,7 @@ const TopBar = () => {
         
         <div className='flex justify-around items-center gap-3'>
             <img src={user && user?.profilePhoto?.data ? getImageType(user.profilePhoto.data) : Profile} alt="Profile Photo" className={` w-9  my-2 h-9 rounded-full`} />
-            {user&&<Link to={`/users/details/${user?.id}`} className='font-semibold '>{user?.firstName} {user?.lastName}</Link>}
+            {user && user?._id  &&<Link to={`/users/details/${user?._id}`} className='font-semibold '>{user?.firstName} {user?.lastName}</Link>}
         </div>
       </div>
     </div>
@@ -61,4 +62,3 @@ const TopBar = () => {
 }
 
 export default TopBar
-/*<img src={user.profilePhoto ?  getImageType(user.profilePhoto.data) ? `data:${getImageType(user.profilePhoto.data)};base64,${btoa(String.fromCharCode(...user.profilePhoto.data))}`:'': ''} alt="Profile Photo" className={` w-9  my-2 h-9 rounded-full`} />*/

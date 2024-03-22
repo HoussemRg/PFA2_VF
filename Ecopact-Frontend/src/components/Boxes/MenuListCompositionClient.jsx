@@ -22,8 +22,8 @@ const MenuListCompositionClient = () => {
     };
     
     useEffect(()=>{
-        dispatch(getClientReportList(user?.id));
-    },[user?.id,clientAlerts])
+        dispatch(getClientReportList(user?._id));
+    },[user?._id,clientAlerts])
     
     return (
       <div className='relative'>

@@ -26,7 +26,7 @@ const ThresholdExceededReport = () => {
       <div className="flex flex-col gap-12 w-11/12 mx-auto ">
       <div className='flex justify-between items-center'>
         <div className='text-blue-900 font-bold text-xl'>Values that have exceeded the threshold in {" " +report?.fileName}</div>
-        {report?.isChecked ? <div className=' p-1 disabled bg-green-600  text-white rounded-md' >Alert Sended</div>  :   <div className='text-lg p-2 cursor-pointer bg-orange-600 hover:bg-orange-500 text-white rounded-md' onClick={()=> sendAlertToClient(report?._id)}>Send Warning Alert</div>}
+        {report?.isChecked ? <div className=' p-1 disabled bg-green-600  text-white rounded-md' >Alert sent</div>  :   <div className='text-lg p-2 cursor-pointer bg-orange-600 hover:bg-orange-500 text-white rounded-md' onClick={()=> sendAlertToClient(report?._id)}>Send Warning Alert</div>}
       </div>
       <div className='flex justify-around items-center'>
         <div className='text-gray-700 flex flex-col gap-3  '>

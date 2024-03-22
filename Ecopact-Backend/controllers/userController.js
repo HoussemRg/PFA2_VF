@@ -45,6 +45,8 @@ const updateUser = asyncHandler(async(req, res) => {
         { $set: newUser },
         { new: true }
     ).select("-password");
+    
+    
     return res.status(201).send(updatedUser);
 });
 

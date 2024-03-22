@@ -34,7 +34,7 @@ export const SidebarNav = () => {
             {" "}
           </MenuItem >
           
-          <Link to={`/users/edit/${LoggedUser.id}`}><MenuItem  className="text-white bg-blue-900" id="item" icon={<IoSettings className="text-xl"/>} label="Update Profile">Update Profile</MenuItem></Link> 
+          <Link to={`/users/edit/${LoggedUser._id}`}><MenuItem  className="text-white bg-blue-900" id="item" icon={<IoSettings className="text-xl"/>} label="Update Profile">Update Profile</MenuItem></Link> 
           <Link to="/Dashboard"><MenuItem  className="text-white " id="item" icon={<FaTableList />} label="Main Dashboard">Main Dashboard</MenuItem></Link> 
           
           <SubMenu id="item" className="text-white " icon={<ImStatsDots />} label="Historical rates">

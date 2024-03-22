@@ -13,7 +13,7 @@ const ClientThresholdExceededReport = () => {
     useEffect(()=>{
         dispatch(getSingleReport(id))
         dispatch(viewAlert(id))
-        dispatch(getClientReportList(user?.id));
+        dispatch(getClientReportList(user?._id));
     },[id])
   return (
     <div className="flex flex-col gap-12 ">

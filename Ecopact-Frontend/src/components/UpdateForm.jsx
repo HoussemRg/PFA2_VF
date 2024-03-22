@@ -1,16 +1,16 @@
-import {  useState } from 'react';
 import { Button, Label} from 'flowbite-react';
 import { useParams,useNavigate } from 'react-router-dom';
 import { useForm} from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { UpdateUser } from '../apiCalls/userApiCall';
-import {useSelector} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux'
 import getImageType from '../utils/getImageType';
 import Profile from '../assets/profile.png'
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup'
+import { authActions } from '../slices/authSlice';
+
 function UpdateForm() {
   const user = useSelector(state=>state.auth.user);
+  const dispatch=useDispatch();
   const { id } = useParams();
   const { register, handleSubmit } = useForm({
     defaultValues:{
@@ -30,6 +30,16 @@ function UpdateForm() {
         const response = await UpdateUser(NewUser,id);
         if (response && response.data) {
             toast.success('User Updated successfully');
+            const newUser={
+              ...user,
+              firstName:response.data.firstName,
+              lastName:response.data.lastName,
+              email:response.data.email,
+              password:response.data.password,
+              phoneNumber:response.data.phoneNumber,
+            }
+            
+            dispatch(authActions.login(newUser))
             navigate('/Dashboard');
         } else {
             toast.error('Failed to update user');

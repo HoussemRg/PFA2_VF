@@ -41,7 +41,7 @@ const TopBarAdminDashboard = () => {
           
         <div className='flex justify-around items-center gap-3'>
             <img src={user && user?.profilePhoto?.data ? getImageType(user.profilePhoto.data) : Profile} alt="Profile Photo" className={` w-9  my-2 h-9 rounded-full`} />
-            {user&&<Link to={`/users/details/${user?.id}`} className='font-semibold '>{user?.firstName} {user?.lastName}</Link>}
+            {user&&<Link to={`/users/details/${user?._id}`} className='font-semibold '>{user?.firstName} {user?.lastName}</Link>}
         </div>
       </div>
     </div>
