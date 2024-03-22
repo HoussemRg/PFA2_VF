@@ -8,6 +8,7 @@ const loginUser=(user)=>{
         try{
             const res=await request.post(`/api/auth/login`,user);
             dispatch(authActions.login(res.data));
+            
             localStorage.setItem("user",JSON.stringify(res.data))
         }catch(err){
             toast.error(err.response.data,{autoClose:1200});

@@ -55,19 +55,19 @@ userSchema.methods.generateAuthToken=function(){
 
 const validateRegisterUser=(obj)=>{
     const schema=Joi.object({
-        firstName:Joi.string().min(3).max(100).trim().required(),
-        lastName:Joi.string().min(3).max(100).trim().required(),
-        email:Joi.string().email().min(5).required(),
-        password:Joi.string().min(5).max(50).required(),
-        phoneNumber:Joi.string().required(),
+        firstName:Joi.string().min(3).max(100).trim().required().trim(),
+        lastName:Joi.string().min(3).max(100).trim().required().trim(),
+        email:Joi.string().email().min(5).required().trim(),
+        password:Joi.string().min(5).max(50).required().trim(),
+        phoneNumber:Joi.string().required().trim(),
     })
     return schema.validate(obj);
 }
 
 const validateLoginUser=(obj)=>{
     const schema=Joi.object({
-        email:Joi.string().email().min(5).required(),
-        password:Joi.string().min(5).max(50).required(),
+        email:Joi.string().email().min(5).required().trim(),
+        password:Joi.string().min(5).max(50).required().trim(),
     })
     return schema.validate(obj);
 }
@@ -75,9 +75,9 @@ const validateUpdateUser=(obj)=>{
     const schema=Joi.object({
         firstName:Joi.string().min(3).max(100).trim(),
         lastName:Joi.string().min(3).max(100).trim(),
-        email:Joi.string().email().min(5),
-        password:Joi.string().min(5).max(50),
-        phoneNumber:Joi.string(),
+        email:Joi.string().email().min(5).trim(),
+        password:Joi.string().allow('', null).min(5).max(50).trim(),
+        phoneNumber:Joi.string().trim(),
     })
     return schema.validate(obj);
 }

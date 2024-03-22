@@ -1,12 +1,10 @@
 import Navbar from "../components/Navbar";
 import { useForm} from 'react-hook-form';
-
-import {  useNavigate} from "react-router-dom";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { registerUser } from "../apiCalls/authApiCall";
 const Register = () => {
-  let navigate = useNavigate();
+  
   const formShema = yup.object({
     firstName: yup.string().required('Enter your first name'),
     lastName: yup.string().required('Enter your last name'),
@@ -24,10 +22,25 @@ const Register = () => {
   });
   const onSubmit = (data)=>{
     
-    registerUser({
-      ...data,
-      profilePhoto: document.querySelector('.img')[0]
-    }); 
+    const formData= new FormData();
+    if(data.profilePhoto.length!=0){
+      formData.append('firstName',data.firstName)
+      formData.append('lastName',data.lastName)
+      formData.append('email',data.email)
+      formData.append('password',data.password)
+      formData.append('phoneNumber',data.phoneNumber)
+      formData.append('image',data.profilePhoto[0])
+      
+    }else{
+      formData.append('firstName',data.firstName)
+      formData.append('lastName',data.lastName)
+      formData.append('email',data.email)
+      formData.append('password',data.password)
+      formData.append('phoneNumber',data.phoneNumber)
+      
+    }
+    
+    registerUser(formData); 
     
   };
   
@@ -142,7 +155,7 @@ const Register = () => {
                     className="peer img block min-h-[auto] w-full rounded border-0 bg-transparent px-3 leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                     id="exampleFormControlInput22"
                     name="profilePhoto"
-                    {...register('profilePhoto', {required: true})}
+                    {...register('profilePhoto')}
 
                   />
                   <label

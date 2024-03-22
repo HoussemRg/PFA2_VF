@@ -36,10 +36,10 @@ const updateUser = asyncHandler(async(req, res) => {
     const newUser = req.body;
     const user=await User.findById(userId);
     if(!user) return res.status(404).send("User not found");
-    if(newUser.password){
+    if(newUser.password && newUser.password!==''){
         newUser.password = await bcrypt.hash(newUser.password, 10);
     }
-    console.log(newUser);
+    
     const updatedUser=await User.findByIdAndUpdate(
         { _id: userId },
         { $set: newUser },

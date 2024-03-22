@@ -33,11 +33,17 @@ const DelUser = async (id, user) => {
 
 const UpdateUser = async (updated, id) => {
     try {
-        const res = await request.put(`/api/user/${id}`, updated, {
+        const res = await request.put(`/api/user/${id}`, updated.newUser, {
             headers: {
                 'Authorization': `Bearer ${updated.token}`
             }
         });
+        let user= JSON.parse(localStorage.getItem("user"));
+        user.firstName=res.data.firstName;
+        user.lastName=res.data.lastName;
+        user.email=res.data.email;
+        user.phoneNumber=res.data.phoneNumber;
+        localStorage.setItem("user",JSON.stringify(user))
 
         return res;
     } catch (err) {
