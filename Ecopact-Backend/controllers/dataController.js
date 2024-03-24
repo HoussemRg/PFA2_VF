@@ -21,9 +21,14 @@ const addNewReport=asyncHandler(async(req,res)=>{
      const sheet = workbook.Sheets[workbook.SheetNames[0]];
      const jsonData = xlsx.utils.sheet_to_json(sheet, { raw: true });
      let alertData=[];
+    
      for(const row of jsonData){
+
         const {error}=validateData({date:row.date,data:{dataName:row.dataType,dataRate:row.rate}});
         if(error) return res.status(400).send(`${error.details[0].message} in a field of your data`);
+        if(typeof(row.date)==='number'){
+         row.date=new Date((row.date - 25569) * 86400 * 1000);
+        }
         const timeSerie= new Data({
            date:row.date,
            data:{
@@ -36,11 +41,11 @@ const addNewReport=asyncHandler(async(req,res)=>{
         
         if(!existingData){
          await timeSerie.save()
-         if(timeSerie.data.dataName==="NH4" && timeSerie.data.dataRate>3){
+         if(timeSerie.data.dataName==="NH4" && timeSerie.data.dataRate>1){
             alertData.push(timeSerie._id);
-         }else if(timeSerie.data.dataName==="PxOy" && timeSerie.data.dataRate>2.5){
+         }else if(timeSerie.data.dataName==="PxOy" && timeSerie.data.dataRate>1){
             alertData.push(timeSerie._id);
-         }else if(timeSerie.data.dataName==="S" && timeSerie.data.dataRate>2.75){
+         }else if(timeSerie.data.dataName==="NO3" && timeSerie.data.dataRate>2.75){
             alertData.push(timeSerie._id);
          }
         }
@@ -166,7 +171,7 @@ const getNumberArrangements=asyncHandler(async (req,res)=>{
    const userId=req.user.id;
    const NH4Number=await Data.countDocuments({user:userId,'data.dataName':'NH4'})
    const PxOyNumber=await Data.countDocuments({user:userId,'data.dataName':'PxOy'})
-   const SNumber=await Data.countDocuments({user:userId,'data.dataName':'S'})
+   const SNumber=await Data.countDocuments({user:userId,'data.dataName':'NO3'})
    res.status(200).send([NH4Number,PxOyNumber,SNumber])
 })
 

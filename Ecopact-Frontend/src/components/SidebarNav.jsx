@@ -2,10 +2,12 @@ import { Sidebar, Menu, MenuItem, useProSidebar, SubMenu } from "react-pro-sideb
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { IoAnalyticsOutline } from "react-icons/io5";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
+import LOGO from '../assets/LOGO.png'
+import SEMILOGO from '../assets/SEMI_LOGO.png'
 
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { IoSettings } from "react-icons/io5";import '../index.css'
-import AppLogo from '../../public/assets/logo.jpg'
+
 //imported icons
 import { FaTableList } from "react-icons/fa6";
 import { ImStatsDots } from "react-icons/im";
@@ -22,9 +24,11 @@ export const SidebarNav = () => {
     <div id="sidebar" className="h-full" style={({ height: "100vh" }, { display: "flex" })}>
       <Sidebar backgroundColor="rgb(16 22 36)">
         <Menu>
-        <MenuItem className="text-white text-center text-xl font-semibold" id="item" icon={
-            <img  className="border rounded-full" src={AppLogo}></img>
-          }>ECOPACT</MenuItem>
+        <Link to='/'><MenuItem className="text-white text-center text-xl font-semibold" id="item" icon={
+            <div  className="flex items-center  cursor-pointer">
+            <img src={SEMILOGO} alt="logo" className="rounded-full h-10 w-24" />
+          </div>
+          }>ECOPACT</MenuItem></Link>
           <MenuItem id="item" className="text-center"
             icon={<MenuOutlinedIcon className="text-white"/>}
             onClick={() => {

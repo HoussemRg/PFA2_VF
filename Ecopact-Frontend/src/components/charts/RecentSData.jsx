@@ -9,7 +9,7 @@ const RecentSData = () => {
       labels: SRecentData?.map(data => new Date(data.date).toISOString().split('T')[0]),
       datasets: [
         {
-          label: "S Rates",
+          label: "NO3 Rates",
           data: SRecentData?.map((data) => data?.data.dataRate),
           borderColor: 'rgb(5, 150, 105)',
           

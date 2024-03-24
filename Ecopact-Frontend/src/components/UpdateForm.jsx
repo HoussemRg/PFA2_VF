@@ -29,7 +29,7 @@ function UpdateForm() {
     try{
         const response = await UpdateUser(NewUser,id);
         if (response && response.data) {
-            toast.success('User Updated successfully');
+            toast.success('User Updated successfully',{autoClose:1200});
             const newUser={
               ...user,
               firstName:response.data.firstName,
@@ -42,7 +42,7 @@ function UpdateForm() {
             dispatch(authActions.login(newUser))
             navigate('/Dashboard');
         } else {
-            toast.error('Failed to update user');
+            toast.error('Failed to update user',{autoClose:1200});
         }
     } catch (error) {
         

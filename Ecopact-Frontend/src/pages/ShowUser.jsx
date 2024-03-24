@@ -7,12 +7,12 @@ import { FaTrash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import './ShowUser.css';
 import Profile from '../assets/profile.png'
-
+import {useSelector} from 'react-redux'
 import getImageType from '../utils/getImageType';
 const ShowUser = () => {
   const [user, setUser] = useState({});
   const { id } = useParams();
-
+  const userAuthenticated = useSelector(state=>state.auth.user);
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -80,7 +80,7 @@ const navigateToDeletePage = ()=>{
             <div className='bg-white mt-2 w-1/2 border'>
             {user.user && <p className='m-4'><span className='font-semibold'>Joined on</span> {user.user.createdAt}</p>}
               <div className='flex justify-center gap-3'>
-                <button className='flex items-center hover:bg-blue-900 hover:text-white hover:border-white transition gap-2 border rounded border-blue-900 px-4 py-2 text-blue-900' onClick={navigateToEditPage}><span><FaEdit /></span>Edit</button>
+                { id===userAuthenticated._id && <button className='flex items-center hover:bg-blue-900 hover:text-white hover:border-white transition gap-2 border rounded border-blue-900 px-4 py-2 text-blue-900' onClick={navigateToEditPage}><span><FaEdit /></span>Edit</button>}
                 <button className='flex items-center hover:bg-red-600 hover:text-white hover:border-white transition gap-2 border rounded border-red-600 px-4 py-2 text-red-600' onClick={navigateToDeletePage}><span><FaTrash /></span>Delete Account</button>
               </div>
             </div>

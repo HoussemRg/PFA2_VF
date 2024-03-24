@@ -38,6 +38,8 @@ const updateUser = asyncHandler(async(req, res) => {
     if(!user) return res.status(404).send("User not found");
     if(newUser.password && newUser.password!==''){
         newUser.password = await bcrypt.hash(newUser.password, 10);
+    }else{
+        newUser.password=user.password
     }
     
     const updatedUser=await User.findByIdAndUpdate(
@@ -45,7 +47,7 @@ const updateUser = asyncHandler(async(req, res) => {
         { $set: newUser },
         { new: true }
     ).select("-password");
-    
+
     
     return res.status(201).send(updatedUser);
 });

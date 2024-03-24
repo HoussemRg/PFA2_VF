@@ -72,6 +72,3 @@ const ANPEAlertList = () => {
 }
 
 export default ANPEAlertList
-/*{item.user && item.user.profilePhoto ? (
-                                            <img className=' h-8 w-8 rounded-full' src={getImageType(item.user.profilePhoto.data) ? `data:${getImageType(item.user.profilePhoto.data)};base64,${btoa(String.fromCharCode(...item.user.profilePhoto.data))}` : ''} alt="Profile Photo" />
-                                        ) : <img className=' h-8 w-8 rounded-full' src={Profile} alt="Profile Photo" />   }*/

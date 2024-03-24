@@ -36,8 +36,8 @@ const ThresholdExceededReport = () => {
             <div><span className=' font-bold'>number of values :</span> {" "+report?.data.length}</div>
         </div>
         <div className='text-gray-700 flex flex-col gap-3  '>
-            <div><span className=' font-bold'>NH4 threshold :</span> {" "}3</div>
-            <div><span className=' font-bold'>PxOy threshold :</span> {" "}2.5</div>
+            <div><span className=' font-bold'>NH4 threshold :</span> {" "}1</div>
+            <div><span className=' font-bold'>PxOy threshold :</span> {" "}1</div>
             <div><span className=' font-bold'>NO3 threshold :</span>{" " }2.75</div>
            
         </div>

@@ -42,16 +42,16 @@ const SHistoryRates = () => {
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let day = date.getDate();
-    dispatch(getDataPerDate('S',year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day)));
+    dispatch(getDataPerDate('NO3',year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day)));
     }
     const submitMonth=(data)=>{
       const [year,month]=data.month.split("-");
-      dispatch(getDataPerMonth('S',month,year))
+      dispatch(getDataPerMonth('NO3',month,year))
     }
     const submitYear=(data)=>{
       const year=data.year;
       dispatch(dataActions.setRecentSYear(year))
-      dispatch(getDataPerYear('S',year));
+      dispatch(getDataPerYear('NO3',year));
     }
     const calculateSAverageRateAndNumberPerMonth=()=>{
       if(SDataPerMonth.length!==0){
@@ -155,7 +155,7 @@ const SHistoryRates = () => {
                 <label htmlFor="month" className="text-sm font-bold">Select Year</label>
                 <div className="flex justify-between items-center w-full gap-2">
                   <div className="flex flex-col h-full gap-1">
-                    <input type="number" id="month" name="year" min="2022" className="outline-none w-11/12 flex h-full border-2 pl-2" {...registerYear("year")} />
+                    <input type="number" id="month" name="year" min="1970" className="outline-none w-11/12 flex h-full border-2 pl-2" {...registerYear("year")} />
                     <p className=' text-sm text-red-700'>{errorsYear.year?.message}</p>
                   </div>
                   <div className="bg-green-600 hover:bg-green-400  text-white rounded-md p-1"><input type="submit" value="Get data" className="cursor-pointer text-sm" /></div>

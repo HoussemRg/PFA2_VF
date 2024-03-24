@@ -81,6 +81,7 @@ const dataSlice=createSlice({
         getArrangements:(state,action)=>{
             state.Arrangements=action.payload;
         },
+        
     }
 })
 

@@ -7,7 +7,7 @@ const ArrangmentPieChart = () => {
   
   const {Arrangements}=useSelector(state=> state.data)
     const data = {
-        labels: ['NH4', 'PxOy', 'S'],
+        labels: ['NH4', 'PxOy', 'NO3'],
         datasets: [
           {
             label: 'Arrangements',

@@ -1,8 +1,8 @@
-import { IoMdAnalytics } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../slices/authSlice";
 import { dataActions } from '../slices/dataSlice';
+import LOGO from '../assets/LOGO.png'
 const Navbar = () => {
   const user = useSelector(state=>state.auth.user);
   const dispatch = useDispatch();
@@ -32,10 +32,9 @@ const Navbar = () => {
   }
   return (
     <nav className="max-sm:flex-col max-sm:gap-6 bg-white flex justify-between items-center px-9 py-5 h-20 ">
-      <div className="flex items-center gap-3 text-2xl px-3 cursor-pointer">
-        <IoMdAnalytics className='text-yellow-400'/>
-        <h2 className="font-bold text-2xl text-blue-950">ECOPACT</h2>
-      </div>
+      <Link to='/' className="flex items-center  gap-3 text-2xl px-3 cursor-pointer">
+        <img src={LOGO} alt="logo" className="rounded-md h-16 w-24" />
+      </Link>
       
       <ul
         className={`flex gap-5 text-blue-950 px-10`}

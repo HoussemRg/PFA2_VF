@@ -9,7 +9,7 @@ const SLineChartPerMonth = () => {
       labels: SDataPerMonth.map(data => new Date(data.date).toISOString().split('T')[0]),
       datasets: [
         {
-          label: "S Rates",
+          label: "NO3 Rates",
           data: SDataPerMonth.map((data) => data?.data.dataRate),
           borderColor: 'rgb(75, 192, 192)',
           

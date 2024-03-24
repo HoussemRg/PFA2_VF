@@ -35,6 +35,7 @@ const Main = () => {
     }
     const formData = new FormData();
     formData.append("file", fileSelected);
+   
     dispatch(postFile(formData));
   };
   
@@ -44,7 +45,7 @@ const Main = () => {
     dispatch(getSAverageData());
     dispatch(getRecentData('NH4'));
     dispatch(getRecentData('PxOy'));
-    dispatch(getRecentData('S'));
+    dispatch(getRecentData('NO3'));
     dispatch(getArrangementsNumber())
   },[])
 
@@ -69,7 +70,7 @@ const Main = () => {
           <div className="shadow-xl flex rounded">
             <div className="text-center p-6 bg-green-600 flex justify-center rounded-l items-center text-2xl text-gray-50"><SiReact /></div>
             <div className="flex pb-5 pt-1 pl-2 pr-4  justify-start flex-col">
-              <p className="text-sm">S average rate</p>
+              <p className="text-sm">NO3 average rate</p>
               <div className=" font-bold text-lg ">{SAverageRates}</div>
             </div>
           </div>

@@ -30,7 +30,7 @@ const ClientAlertsList = () => {
                         <Table.HeadCell>#id</Table.HeadCell>
                         <Table.HeadCell>Sender</Table.HeadCell>
                         <Table.HeadCell>Report</Table.HeadCell>
-                        <Table.HeadCell>Sended At</Table.HeadCell>
+                        <Table.HeadCell>Sent At</Table.HeadCell>
                     </Table.Head>
                     <Table.Body className="divide-y border text-center">
                         {clientReportsArray.map((item,index) => (

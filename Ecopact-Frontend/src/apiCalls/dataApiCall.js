@@ -6,23 +6,27 @@ import { toast } from 'react-toastify';
 
 const postFile = (file) => {
     return async (dispatch, getState) => {
+        let id;
       try {
+        id= toast.loading("Uploading data,Please wait...")
         const res = await request.post('/api/data/add', file, {
           headers: {
             Authorization: "Bearer " + getState().auth.user.token,
             'Content-Type': "multipart/form-data"
           }
         });
-        toast.success(res.data,{autoClose:1200});
+        toast.update(id, { render:res.data, type: "success", isLoading: false,autoClose: 1200 });
+        
         dispatch(getNH4AverageData());
         dispatch(getPxOyAverageData());
         dispatch(getSAverageData());
         dispatch(getRecentData('NH4'));
         dispatch(getRecentData('PxOy'));
-        dispatch(getRecentData('S'));
+        dispatch(getRecentData('NO3'));
         dispatch(getArrangementsNumber());
       } catch (err) {
-        toast.error(err?.response?.data,{autoClose:1200})
+        toast.update(id,  { render: err?.response?.data, type: "error", isLoading: false, autoClose: 1200 });
+        
       }
     };
   };
@@ -61,7 +65,7 @@ const getSAverageData=()=>{
     return async (dispatch,getState)=>{
         try{
             
-            const res= await request.get(`/api/data/average/S`,{
+            const res= await request.get(`/api/data/average/NO3`,{
                 headers: {
                     Authorization: "Bearer " + getState().auth.user.token, 
                 }})
@@ -83,16 +87,16 @@ const getDataPerDate=(dataType,date)=>{
                 dispatch(dataActions.getNH4PerDate(res.data));    
             }else if(dataType==="PxOy"){
                 dispatch(dataActions.getPxOyPerDate(res.data));
-            }else if(dataType==="S"){
+            }else if(dataType==="NO3"){
                 dispatch(dataActions.getSPerDate(res.data));
             }
         }catch(err){          
-            toast.error(err.response.data)
+            toast.error(err.response.data,{autoClose:1200})
             if(dataType==="NH4"){
                 dispatch(dataActions.getNH4PerDate(null));    
             }else if(dataType==="PxOy"){
                 dispatch(dataActions.getPxOyPerDate(null));
-            }else if(dataType==="S"){
+            }else if(dataType==="NO3"){
                 dispatch(dataActions.getSPerDate(null));
             }
         }
@@ -111,7 +115,7 @@ const getDataPerMonth=(dataType,month,year)=>{
                     dispatch(dataActions.getNH4PerMonth(res.data));    
                 }else if(dataType==="PxOy"){
                     dispatch(dataActions.getPxOyPerMonth(res.data));
-                }else if(dataType==="S"){
+                }else if(dataType==="NO3"){
                     dispatch(dataActions.getSPerMonth(res.data));
                 }    
         }catch(err){
@@ -148,7 +152,7 @@ const getDataPerYear=(dataType,year)=>{
                     dispatch(dataActions.getNH4PerYear(res.data));    
                 }else if(dataType==="PxOy"){
                     dispatch(dataActions.getPxOyPerYear(res.data));
-                }else if(dataType==="S"){
+                }else if(dataType==="NO3"){
                     dispatch(dataActions.getSPerYear(res.data));
                 }      
             
@@ -170,7 +174,7 @@ const getRecentData=(dataType)=>{
                     dispatch(dataActions.getNH4RecentData(res.data));    
                 }else if(dataType==="PxOy"){
                     dispatch(dataActions.getPxOyRecentData(res.data));
-                }else if(dataType==="S"){
+                }else if(dataType==="NO3"){
                     dispatch(dataActions.getSRecentData(res.data));
                 }    
         }catch(err){

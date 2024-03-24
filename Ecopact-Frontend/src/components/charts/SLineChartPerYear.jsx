@@ -48,7 +48,7 @@ const SLineChartPerYear = (props) => {
         labels: data.map(item => item.month),
           datasets: [
             {
-              label: "S Average Rates",
+              label: "NO3 Average Rates",
               data:data.map(item => item.moyenne),
               backgroundColor:colorArray,
               
@@ -59,7 +59,7 @@ const SLineChartPerYear = (props) => {
           plugins: {
             title: {
               display: true,
-              text: "S Average Rates in 2024"
+              text: "NO3 Average Rates in 2024"
             },
             legend: {
               display:false
